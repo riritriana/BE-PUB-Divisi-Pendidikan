@@ -18,4 +18,5 @@ module.exports = {
     smtp_user: process.env.SMTP_USER,
     smtp_pass: process.env.SMTP_PASS,
     google_api_key: process.env.GOOGLE_API_KEY,
+    encrpytion_key : process.env.ENCRYPTION_KEY
 };

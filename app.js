@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var helmet = require('helmet');
 var cors = require('cors');
-const contextPath = '/club-house';
+const contextPath = '/pub';
 
 var app = express();
 

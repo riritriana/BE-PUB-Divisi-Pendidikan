@@ -1,9 +1,9 @@
 const JsonResponse = require('../response/json.response');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Users = require('../models/users.model');
 const config = require('../config/config');
 
+const Users = require('../models/users.model');
 
 const Login = async (req) => {
     const { username, password } = req.body;
@@ -32,12 +32,7 @@ const Login = async (req) => {
     return [JsonResponse(status, msg, data), "salah"];
 }
 
-// const a = async () => {
-//     const salt = await bcrypt.genSalt(); // fdsfsfs
-//     const hash = await bcrypt.hash("123456789", salt);
-//     console.log(hash);
-// }
-// a();
+
 module.exports = {
     Login
 }

@@ -10,6 +10,11 @@ router.post("/login", validate([
 ]),
     users.login
 );
+router.get("/", 
+    (req,res)=>{
+        res.send("hello word")
+    }
+);
 
 
 module.exports = router;

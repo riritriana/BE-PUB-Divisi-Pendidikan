@@ -5,10 +5,12 @@ var logger = require('morgan');
 var helmet = require('helmet');
 var cors = require('cors');
 const contextPath = '/pub';
+// const cookieParser  = require("cookie-parser");
 
 var app = express();
 
 const router = require('./routes/index');
+const authMiddleware = require('./utils/auth.util');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,6 +21,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(contextPath, express.static(path.join(__dirname, 'public')));
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//     next();
+//   });
+
 
 app.use(cors());
 
@@ -37,6 +46,14 @@ app.get(`${contextPath}`, (req, res) => {
 });
 
 app.use(contextPath, router);
+// app.use((req, res, next) => {
+//     console.log("Header permintaan:");
+//     console.log(req.headers);
+//     console.log("Cookies:");
+//     console.log(req.cookies);
+//     next();
+// });
+
 
 // error handler 404
 app.use((req, res, next) => {

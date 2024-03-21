@@ -11,6 +11,4 @@ router.post("/login", validate([
     users.login
 );
 
-
-
 module.exports = router;

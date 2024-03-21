@@ -28,8 +28,12 @@ app.use(contextPath, express.static(path.join(__dirname, 'public')));
 //     next();
 //   });
 
+const corsOptions = {
+    origin: 'http://127.0.0.1:5500',
+    credentials: true,
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(
     helmet({
@@ -46,13 +50,6 @@ app.get(`${contextPath}`, (req, res) => {
 });
 
 app.use(contextPath, router);
-// app.use((req, res, next) => {
-//     console.log("Header permintaan:");
-//     console.log(req.headers);
-//     console.log("Cookies:");
-//     console.log(req.cookies);
-//     next();
-// });
 
 
 // error handler 404

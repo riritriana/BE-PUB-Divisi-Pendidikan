@@ -43,15 +43,7 @@ const Login = async (req) => {
                 role: user.role
             };
             const token = jwt.sign(payload, config.encrpytion_key);
-
-
-            if (user.role === "pendidikan") {
-                return JsonResponse(status, msg, { token, role: "pendidikan" })
-            } else if (user.role === "anggota") {
-                return JsonResponse(status, msg, { token, role: "anggota" })
-            }else {
-                return JsonResponse(status, msg, { token, role: "pembina" })
-            }
+            return JsonResponse(status, msg, token)
         } else {
             msg = "Kata sandi salah.";
         }

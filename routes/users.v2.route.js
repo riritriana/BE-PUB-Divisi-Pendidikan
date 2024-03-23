@@ -2,6 +2,7 @@ const { body } = require('express-validator');
 const express = require('express');
 const validate = require('../utils/validate.util');
 const users = require('../controllers/users.v2.controller');
+const authMiddleware = require('../utils/auth.util');
 const router = express.Router();
 
 router.post("/login", validate([
@@ -11,4 +12,15 @@ router.post("/login", validate([
     users.login
 );
 
+
+router.use(authMiddleware);
+
+router.get("/me", (req, res) => {
+    try {
+        res.json(req.account);
+    } catch (error) {
+        res.status(404);
+        res.send("belum login")
+    }
+});
 module.exports = router;

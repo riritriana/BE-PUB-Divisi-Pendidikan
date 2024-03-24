@@ -11,6 +11,7 @@ var app = express();
 
 const router = require('./routes/index');
 const authMiddleware = require('./utils/auth.util');
+const Pelatihan = require('./models/pelatihan.model');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +34,7 @@ const corsOptions = {
     credentials: true,
 };
 
+Pelatihan
 app.use(cors(corsOptions));
 
 app.use(

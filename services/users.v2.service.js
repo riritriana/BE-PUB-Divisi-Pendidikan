@@ -5,13 +5,9 @@ const config = require('../config/config');
 var express = require('express');
 var app = express();
 
-var cookieParser = require('cookie-parser');
-
-app.use(cookieParser());
-
 const Users = require('../models/users.model');
 
-const   Login = async (req) => {
+const Login = async (req) => {
     const { username, password } = req.body;
     const user = await Users.checkUsername(username);
     let msg = "gagal";

@@ -11,22 +11,7 @@ app.use(cookieParser());
 
 const Users = require('../models/users.model');
 
-// login(req, res) {
-//     const token = jwt.sign(rows[0], "rahasia");
-//     if (rows[0].email) {
-//         res.send({
-//             token: token,
-//             role: "user",
-//         });
-//     } else {
-//         res.send({
-//             token: token,
-//             role: "admin",
-//         });
-//     }
-// }
-
-const Login = async (req) => {
+const   Login = async (req) => {
     const { username, password } = req.body;
     const user = await Users.checkUsername(username);
     let msg = "gagal";
@@ -53,8 +38,6 @@ const Login = async (req) => {
 
     return JsonResponse(status, msg);
 }
-
-
 
 module.exports = {
     Login

@@ -26,4 +26,11 @@ router.post("/get-nama-pelatihan-instruktur-anggota",
     divisi.getNamaPelatihanInstrukturAnggota
 );
 
+router.post("/get-jadwal",
+    validate([
+        body('id_user').notEmpty().withMessage('id_user is required'),
+    ]),
+    divisi.getJadwal
+);
+
 module.exports = router;

@@ -27,8 +27,18 @@ const getNamaPelatihanInstrukturAnggota = async (req, res, next) => {
     }
 };
 
+const getJadwal = async (req, res, next) => {
+    try {
+        const result = await DivisiService.GetJadwal(req);
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
     namaAnggotaPelatihan,
     menambahNilaiPelatihan,
-    getNamaPelatihanInstrukturAnggota
+    getNamaPelatihanInstrukturAnggota,
+    getJadwal
 };

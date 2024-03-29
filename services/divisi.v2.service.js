@@ -60,15 +60,15 @@ const GetNamaPelatihanInstrukturAnggota = async (req) => {
     let msg = "gagal";
     let status = false;
     let data = {};
-    
+
     if (req.account.role === "pendidikan") {
         const { id_user } = req.body;
         const instruktur = await Pelatihan.getNamaPelatihanInstruktur(id_user);
-        
+
         if (instruktur) {
             let anggota = await AnggotaPelatihan.getNilaiAnggota(instruktur.id);
-            
-            
+
+
             data = {
                 instruktur,
                 anggota
@@ -77,14 +77,28 @@ const GetNamaPelatihanInstrukturAnggota = async (req) => {
             status = true;
         }
     }
-    
+
     return JsonResponse(status, msg, data);
 }
 
+const GetJadwal = async (req) => {
+    let msg = "gagal";
+    let status = false;
+    let data = {};
+    if (req.account.role === "pendidikan") {
+        const { id_user } = req.body;
+        data.jadwal = await Pelatihan.getJadwal(id_user);
+        data.nama_anggota = await AnggotaPelatihan.getNamaAnggotaPelatiahn();
+        msg = "berhasil hore";
+        status = true;
+    }
 
+    return JsonResponse(status, msg, data);
+}
 
 module.exports = {
     NamaAnggotaPelatihan,
     MenambahNilaiPelatihan,
-    GetNamaPelatihanInstrukturAnggota
+    GetNamaPelatihanInstrukturAnggota,
+    GetJadwal
 }

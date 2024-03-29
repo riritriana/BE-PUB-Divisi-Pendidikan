@@ -1,5 +1,6 @@
 const AnggotaPelatihan = require("../models/anggotaPelatihan.model");
 const Nilai = require("../models/nilai.model");
+const Pelatihan = require("../models/pelatihan.model");
 const JsonResponse = require("../response/json.response");
 
 const NamaAnggotaPelatihan = async (req) => {
@@ -21,7 +22,6 @@ const MenambahNilaiPelatihan = async (req) => {
     let status = false;
     let data = [];
     if (req.account.role === "pendidikan") {
-        console.log(req.body);
         const { id_user, jenis_nilai, nilai } = req.body;
         const id_nilai = await AnggotaPelatihan.findOne({ where: { id_user_pelatihan: id_user }, attributes: ["id_nilai"] })
         if (jenis_nilai === "Kuis") {
@@ -36,7 +36,7 @@ const MenambahNilaiPelatihan = async (req) => {
                     }
                 }
                 if (kuisKosong) {
-                   await nilaiPelatihan.update({ [kuisKosong]: nilai });
+                    await nilaiPelatihan.update({ [kuisKosong]: nilai });
                     msg = `Nilai ${kuisKosong} berhasil diisi dengan nilai ${nilai}`;
                     status = true;
                 } else {
@@ -55,7 +55,36 @@ const MenambahNilaiPelatihan = async (req) => {
     }
     return JsonResponse(status, msg, data);
 }
+
+const GetNamaPelatihanInstrukturAnggota = async (req) => {
+    let msg = "gagal";
+    let status = false;
+    let data = {};
+    
+    if (req.account.role === "pendidikan") {
+        const { id_user } = req.body;
+        const instruktur = await Pelatihan.getNamaPelatihanInstruktur(id_user);
+        
+        if (instruktur) {
+            let anggota = await AnggotaPelatihan.getNilaiAnggota(instruktur.id);
+            
+            
+            data = {
+                instruktur,
+                anggota
+            }
+            msg = "berhasil hore";
+            status = true;
+        }
+    }
+    
+    return JsonResponse(status, msg, data);
+}
+
+
+
 module.exports = {
     NamaAnggotaPelatihan,
-    MenambahNilaiPelatihan
+    MenambahNilaiPelatihan,
+    GetNamaPelatihanInstrukturAnggota
 }

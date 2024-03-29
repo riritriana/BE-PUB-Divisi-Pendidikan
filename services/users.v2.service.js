@@ -21,7 +21,8 @@ const Login = async (req) => {
             const payload = {
                 id: user.id,
                 username: user.username,
-                role: user.role
+                role: user.role,
+                name : user.nama
             };
             const token = jwt.sign(payload, config.encrpytion_key);
             return JsonResponse(status, msg, token)

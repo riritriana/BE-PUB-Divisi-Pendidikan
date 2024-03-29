@@ -6,14 +6,8 @@ const router = express.Router();
 
 
 router.post("/get-nama-anggota-pelatihan",
-    // validate([
-    //     body('username').notEmpty().withMessage('username is required'),
-    //     body('password').notEmpty().withMessage('password is required')
-    // ]
-    // ),
     divisi.namaAnggotaPelatihan
 );
-
 
 router.post("/menambah-nilai-pelatihan",
     validate([
@@ -23,6 +17,13 @@ router.post("/menambah-nilai-pelatihan",
     ]
     ),
     divisi.menambahNilaiPelatihan
+);
+
+router.post("/get-nama-pelatihan-instruktur-anggota",
+    validate([
+        body('id_user').notEmpty().withMessage('id_user is required'),
+    ]),
+    divisi.getNamaPelatihanInstrukturAnggota
 );
 
 module.exports = router;

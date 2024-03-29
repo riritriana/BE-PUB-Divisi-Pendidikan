@@ -2,6 +2,7 @@ const { sequelize } = require('../config/sequelize.config');
 const DataTypes = require('sequelize');
 const Pelatihan = require('./pelatihan.model');
 const Users = require('./users.model');
+const Nilai = require('./nilai.model');
 
 const AnggotaPelatihan = sequelize.define(
     'anggota_pelatihan',
@@ -37,6 +38,7 @@ const AnggotaPelatihan = sequelize.define(
 AnggotaPelatihan.belongsTo(Users, { foreignKey: 'id_user_pelatihan' });
 AnggotaPelatihan.belongsTo(Pelatihan, { foreignKey: 'id_pelatihan' });
 
+AnggotaPelatihan.belongsTo(Nilai, { foreignKey: 'id_nilai'});
 
 // query
 
@@ -46,7 +48,7 @@ AnggotaPelatihan.getNamaAnggotaPelatiahn = () => {
         include: [
             {
                 model: Users,
-                attributes: ["id",'nama'],
+                attributes: ["id", 'nama'],
                 required: true
             },
             {
@@ -58,6 +60,24 @@ AnggotaPelatihan.getNamaAnggotaPelatiahn = () => {
     })
 }
 
+// Query menggunakan relasi
+AnggotaPelatihan.getNilaiAnggota = (id_pelatihan) => {
+    return AnggotaPelatihan.findAll({
+        attributes: ['id', 'id_user_pelatihan'],
+        include: [
+            {
+                model: Users,
+                attributes: ['id', 'nama']
+            },
+            {
+                model: Nilai,
+            }
+        ],
+        where: {
+            id_pelatihan
+        }
+    })
+}
 
 
 module.exports = AnggotaPelatihan;

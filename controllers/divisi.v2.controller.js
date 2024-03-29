@@ -18,7 +18,17 @@ const menambahNilaiPelatihan = async (req, res, next) => {
     }
 };
 
+const getNamaPelatihanInstrukturAnggota = async (req, res, next) => {
+    try {
+        const result = await DivisiService.GetNamaPelatihanInstrukturAnggota(req);
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
     namaAnggotaPelatihan,
-    menambahNilaiPelatihan
+    menambahNilaiPelatihan,
+    getNamaPelatihanInstrukturAnggota
 };

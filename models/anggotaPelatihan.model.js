@@ -37,7 +37,6 @@ const AnggotaPelatihan = sequelize.define(
 //relasi
 AnggotaPelatihan.belongsTo(Users, { foreignKey: 'id_user_pelatihan' });
 AnggotaPelatihan.belongsTo(Pelatihan, { foreignKey: 'id_pelatihan' });
-
 AnggotaPelatihan.belongsTo(Nilai, { foreignKey: 'id_nilai'});
 
 // query

@@ -80,19 +80,4 @@ Pelatihan.getJadwal = (id) => {
   })
 }
 
-
-
-Pelatihan.getAnggota = (id) => {
-  return Pelatihan.findOne({
-    include: [
-      {
-        model: Users,
-        attributes: ["nama", "role"],
-        where: { id }
-      },
-    ],
-  })
-}
-
-
 module.exports = Pelatihan;

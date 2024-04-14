@@ -24,4 +24,5 @@ const CategoriPelatihan = sequelize.define(
 );
 
 
+
 module.exports = CategoriPelatihan;

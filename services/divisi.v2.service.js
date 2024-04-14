@@ -1,4 +1,6 @@
 const AnggotaPelatihan = require("../models/anggotaPelatihan.model");
+const CategoriPelatihan = require("../models/categoriPelatihan.model");
+const JadwalPelatihan = require("../models/jadwalPelatihan.model");
 const Nilai = require("../models/nilai.model");
 const Pelatihan = require("../models/pelatihan.model");
 const JsonResponse = require("../response/json.response");
@@ -92,13 +94,54 @@ const GetJadwal = async (req) => {
         msg = "berhasil hore";
         status = true;
     }
-
     return JsonResponse(status, msg, data);
+}
+
+const GetCategori = async (req) => {
+    let msg = "gagal";
+    let status = false;
+    let data = [];
+    if (req.account.role === "pembina") {
+        data = await CategoriPelatihan.findAll();
+        msg = "berhasil hore";
+        status = true;
+    }
+    return JsonResponse(status, msg, data); s
+
+}
+
+const GetHari = async (req) => {
+    let msg = "gagal";
+    let status = false;
+    let data = [];
+    if (req.account.role === "pembina") {
+        data = await JadwalPelatihan.findAll({ attributes: ["id", "hari"], group: ['hari'], order: [['id', 'ASC']] });
+        msg = "berhasil hore";
+        status = true;
+    }   
+    return JsonResponse(status, msg, data); 
+
+}
+
+const GetJam = async (req) => {
+    let msg = "gagal";
+    let status = false;
+    let data = [];
+    if (req.account.role === "pembina") {
+        data = await JadwalPelatihan.findAll({ attributes: ["id", "jam"], group: ['jam'], order: [['id', 'ASC']] });
+        msg = "berhasil hore";
+        status = true;
+    }
+    return JsonResponse(status, msg, data); s
+
 }
 
 module.exports = {
     NamaAnggotaPelatihan,
     MenambahNilaiPelatihan,
     GetNamaPelatihanInstrukturAnggota,
-    GetJadwal
+    GetJadwal,
+    GetCategori,
+    GetHari,
+    GetJam
 }

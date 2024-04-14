@@ -36,9 +36,40 @@ const getJadwal = async (req, res, next) => {
     }
 };
 
+const getCategori = async (req, res, next) => {
+    try {
+        const result = await DivisiService.GetCategori(req);
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
+const getHari = async (req, res, next) => {
+    try {
+        const result = await DivisiService.GetHari(req);
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
+
+const getJam = async (req, res, next) => {
+    try {
+        const result = await DivisiService.GetJam(req);
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
     namaAnggotaPelatihan,
     menambahNilaiPelatihan,
     getNamaPelatihanInstrukturAnggota,
-    getJadwal
+    getJadwal,
+    getCategori,
+    getHari,
+    getJam
 };

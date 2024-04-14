@@ -33,4 +33,14 @@ router.post("/get-jadwal",
     divisi.getJadwal
 );
 
+router.get("/get-categori",
+    divisi.getCategori
+);
+router.get("/get-hari",
+    divisi.getHari
+);
+router.get("/get-jam",
+    divisi.getJam
+);
+
 module.exports = router;

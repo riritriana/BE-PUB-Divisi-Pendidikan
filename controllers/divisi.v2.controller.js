@@ -63,7 +63,14 @@ const getJam = async (req, res, next) => {
         next(err);
     }
 };
-
+const getInstruktur = async (req, res, next) => {
+    try {
+        const result = await DivisiService.GetInstruktur(req);
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
 module.exports = {
     namaAnggotaPelatihan,
     menambahNilaiPelatihan,
@@ -71,5 +78,6 @@ module.exports = {
     getJadwal,
     getCategori,
     getHari,
-    getJam
+    getJam,
+    getInstruktur
 };

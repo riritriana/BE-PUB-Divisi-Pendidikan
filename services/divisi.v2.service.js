@@ -3,6 +3,7 @@ const CategoriPelatihan = require("../models/categoriPelatihan.model");
 const JadwalPelatihan = require("../models/jadwalPelatihan.model");
 const Nilai = require("../models/nilai.model");
 const Pelatihan = require("../models/pelatihan.model");
+const Users = require("../models/users.model");
 const JsonResponse = require("../response/json.response");
 
 const NamaAnggotaPelatihan = async (req) => {
@@ -118,8 +119,8 @@ const GetHari = async (req) => {
         data = await JadwalPelatihan.findAll({ attributes: ["id", "hari"], group: ['hari'], order: [['id', 'ASC']] });
         msg = "berhasil hore";
         status = true;
-    }   
-    return JsonResponse(status, msg, data); 
+    }
+    return JsonResponse(status, msg, data);
 
 }
 
@@ -135,6 +136,18 @@ const GetJam = async (req) => {
     return JsonResponse(status, msg, data); s
 
 }
+const GetInstruktur = async (req) => {
+    let msg = "gagal";
+    let status = false;
+    let data = [];
+    if (req.account.role === "pembina") {
+        data = await Users.findAll({ attributes: ["id", "nama"], where: { role: "pendidikan" }, group: ['nama'], order: [['id', 'ASC']] });
+        msg = "berhasil hore";
+        status = true;
+    }
+    return JsonResponse(status, msg, data); s
+
+}
 
 module.exports = {
     NamaAnggotaPelatihan,
@@ -143,5 +156,6 @@ module.exports = {
     GetJadwal,
     GetCategori,
     GetHari,
-    GetJam
+    GetJam,
+    GetInstruktur
 }

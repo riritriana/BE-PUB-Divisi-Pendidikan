@@ -39,8 +39,13 @@ router.get("/get-categori",
 router.get("/get-hari",
     divisi.getHari
 );
+
 router.get("/get-jam",
     divisi.getJam
+);
+
+router.get("/get-instruktur",
+    divisi.getInstruktur
 );
 
 module.exports = router;

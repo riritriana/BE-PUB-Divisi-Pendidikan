@@ -9,8 +9,9 @@ router.post("/add-pelatihan",
     validate([
         body('name').notEmpty().withMessage('name is required'),
         body('id_categori_pelatihan').notEmpty().withMessage('id_categori_pelatihan is required'),
-        body('id_pelatihan_user').notEmpty().withMessage('id_pelatihan_user is required'),
-        body('id_jadwal').notEmpty().withMessage('id_jadwal is required'),
+        body('id_pelatihan_instruktur').notEmpty().withMessage('id_pelatihan_instruktur is required'),
+        body('hari').notEmpty().withMessage('hari is required'),
+        body('jam').notEmpty().withMessage('jam is required'),
     ]),
     pembina.addpelatihan
 );

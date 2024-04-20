@@ -17,4 +17,9 @@ router.post("/add-pelatihan",
 );
 
 
+router.get(
+    "/get-jadwal-pembina",
+    pembina.getJadwalPembina
+)
+
 module.exports = router;

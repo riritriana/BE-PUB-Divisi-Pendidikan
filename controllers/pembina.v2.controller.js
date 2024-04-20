@@ -9,6 +9,16 @@ const addpelatihan  = async (req, res, next) => {
     }
 };
 
+const getJadwalPembina = async (req, res, next) => {
+    try {
+        const result = await PembinaService.GetJadwalPembina(req);
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
-    addpelatihan
+    addpelatihan,
+    getJadwalPembina
 };

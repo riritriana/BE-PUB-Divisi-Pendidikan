@@ -37,8 +37,8 @@ const AnggotaPelatihan = sequelize.define(
 //relasi
 AnggotaPelatihan.belongsTo(Users, { foreignKey: 'id_user_pelatihan' });
 AnggotaPelatihan.belongsTo(Pelatihan, { foreignKey: 'id_pelatihan' });
-AnggotaPelatihan.belongsTo(Nilai, { foreignKey: 'id_nilai'});
-
+AnggotaPelatihan.belongsTo(Nilai, { foreignKey: 'id_nilai' });
+//angota ada id_pelatihan
 // query
 
 AnggotaPelatihan.getNamaAnggotaPelatiahn = () => {
@@ -58,6 +58,30 @@ AnggotaPelatihan.getNamaAnggotaPelatiahn = () => {
         ]
     })
 }
+
+AnggotaPelatihan.getNamaAnggotaPelatiahnBYID = (id_pelatihan) => {
+    console.log(id_pelatihan);
+    return AnggotaPelatihan.findAll({
+        attributes: ['id'],
+        where: {
+            id_pelatihan
+        },
+        include: [
+            {
+                model: Users,
+                attributes: ["id", 'nama'],
+                required: true
+            },
+            {
+                model: Pelatihan,
+                attributes: ['id'],
+                required: true
+            }
+        ]
+    })
+}
+
+
 
 // Query menggunakan relasi
 AnggotaPelatihan.getNilaiAnggota = (id_pelatihan) => {

@@ -80,4 +80,21 @@ Pelatihan.getJadwal = (id) => {
   })
 }
 
+Pelatihan.getJadwalPembina = () => {
+  return Pelatihan.findAll({
+    include: [
+      {
+        model: Users,
+        attributes: ["nama", "role"]
+      },
+      JadwalPelatihan,
+      {
+        model: CategoriPelatihan,
+        attributes: ['id', 'name']
+      },
+
+    ]
+  })
+}
+
 module.exports = Pelatihan;

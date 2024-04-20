@@ -1,3 +1,4 @@
+const AnggotaPelatihan = require("../models/anggotaPelatihan.model");
 const JadwalPelatihan = require("../models/jadwalPelatihan.model");
 const Pelatihan = require("../models/pelatihan.model");
 const JsonResponse = require("../response/json.response");
@@ -24,16 +25,33 @@ const AddPelatihan = async (req) => {
 
                 msg = "berhasil hore";
                 status = true;
-            }else {
+            } else {
                 msg = "jadwal Tidak Ditemukan"
             }
-            
+
         }
 
     }
     return JsonResponse(status, msg, data); s
+}
 
+
+const GetJadwalPembina = async (req) => {
+    let msg = "gagal";
+    let status = false;
+    let data = {};
+    if (req.account.role === "pembina") {
+        data.jadwal = await Pelatihan.getJadwalPembina();
+        for (const val of data.jadwal) {
+            const dataANggota = await AnggotaPelatihan.getNamaAnggotaPelatiahnBYID(val.id);
+            val.dataValues.kumpulan_anggota = dataANggota;
+        }
+        msg = "berhasil hore";
+        status = true;
+    }
+    return JsonResponse(status, msg, data);
 }
 module.exports = {
-    AddPelatihan
+    AddPelatihan,
+    GetJadwalPembina
 }

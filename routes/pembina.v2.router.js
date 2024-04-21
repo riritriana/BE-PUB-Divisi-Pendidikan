@@ -22,4 +22,14 @@ router.get(
     pembina.getJadwalPembina
 )
 
+router.put(
+    "/ubah-jadwal-pelatihan",
+    pembina.ubahJadwalPelatihan
+);
+
+router.delete(
+    "/delete-pelatihan",
+    pembina.deletePelatihan
+)
+
 module.exports = router;

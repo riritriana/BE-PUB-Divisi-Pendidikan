@@ -115,7 +115,8 @@ const GetHari = async (req) => {
     let msg = "gagal";
     let status = false;
     let data = [];
-    if (req.account.role === "pembina") {
+    console.log(req.account.role);
+    if (req.account.role === "pembina" || req.account.role === "pendidikan") {
         data = await JadwalPelatihan.findAll({ attributes: ["id", "hari"], group: ['hari'], order: [['id', 'ASC']] });
         msg = "berhasil hore";
         status = true;
@@ -128,7 +129,8 @@ const GetJam = async (req) => {
     let msg = "gagal";
     let status = false;
     let data = [];
-    if (req.account.role === "pembina") {
+    console.log(req.account.role);
+    if (req.account.role === "pembina" || req.account.role === "pendidikan") {
         data = await JadwalPelatihan.findAll({ attributes: ["id", "jam"], group: ['jam'], order: [['id', 'ASC']] });
         msg = "berhasil hore";
         status = true;

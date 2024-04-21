@@ -27,7 +27,6 @@ const JadwalPelatihan = sequelize.define(
 );
 JadwalPelatihan.findJamHari = (jam, hari) => {
     return JadwalPelatihan.findOne({
-        attributes: ["id"],
         where: {
             jam,
             hari

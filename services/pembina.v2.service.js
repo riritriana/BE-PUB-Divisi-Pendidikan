@@ -35,7 +35,6 @@ const AddPelatihan = async (req) => {
     return JsonResponse(status, msg, data); s
 }
 
-
 const GetJadwalPembina = async (req) => {
     let msg = "gagal";
     let status = false;
@@ -51,7 +50,65 @@ const GetJadwalPembina = async (req) => {
     }
     return JsonResponse(status, msg, data);
 }
+
+const UbahJadwalPelatihan = async (req) => {
+    let msg = "gagal";
+    let status = false;
+    let data = {};
+    if (req.account.role === "pembina") {
+        const { id, jam, hari } = req.body;
+        const pelatihan = await Pelatihan.findByPk(id);
+        if (pelatihan) {
+            const jadwal = await JadwalPelatihan.findJamHari(jam, hari);
+            if (jadwal) {
+                pelatihan.id_jadwal = jadwal.id;
+                await pelatihan.save();
+                msg = "berhasil hore";
+                status = true;
+            } else {
+                msg = "Tidak di temukan data Jadwal";
+            }
+        } else {
+            msg = "Tidak di temukan data Pelatihan";
+        }
+    }
+    return JsonResponse(status, msg, data);
+}
+
+const DeletePelatihan = async (req) => {
+    let msg = "gagal";
+    let status = false;
+    let data = {};
+    if (req.account.role === "pembina") {
+        const { id } = req.body;
+        console.log(id);
+        const deleteAnggota = AnggotaPelatihan.destroy({
+            where: {
+                id_pelatihan: id
+            }
+        })
+        if (deleteAnggota) {
+            const pelatihan = await Pelatihan.destroy({
+                where: {
+                    id
+                }
+            });
+            if (pelatihan) {
+                status = true;
+                msg = "Berhasil menghapus Pelatihan ";
+            } else {
+                msg = "Tidak di temukan data Pelatihan";
+            }
+        }
+
+
+    }
+    return JsonResponse(status, msg, data);
+}
+
 module.exports = {
     AddPelatihan,
-    GetJadwalPembina
+    GetJadwalPembina,
+    UbahJadwalPelatihan,
+    DeletePelatihan
 }

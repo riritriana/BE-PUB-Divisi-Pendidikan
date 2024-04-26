@@ -9,6 +9,16 @@ const login = async (req, res, next) => {
     }
 };
 
+const getJadwalUser= async(req,res,next)=>{
+    try {
+      const result= await UserService.getJadwalUser(req);
+      res.status(200).json(result);  
+    } catch (err) {
+        next(err);
+ 
+    }
+}
 module.exports = {
-    login
+    login,
+    getJadwalUser
 };

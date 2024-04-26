@@ -23,4 +23,5 @@ router.get("/me", (req, res) => {
         res.send("belum login")
     }
 });
+router.get("/get-jadwal-user",users.getJadwalUser);
 module.exports = router;

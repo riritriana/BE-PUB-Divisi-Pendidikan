@@ -32,10 +32,16 @@ const Login = async (req) => {
     } else {
         msg = "Username tidak ditemukan.";
     }
-
     return JsonResponse(status, msg);
 }
 
+const GetJadwalUser = async(req)=>{
+    let data={};
+    if(req.account.role === "anggota"){
+        data.jadwal= await Users.getJadwalUser();
+    }
+}
 module.exports = {
-    Login
+    Login,
+    GetJadwalUser
 };
